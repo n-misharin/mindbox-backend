@@ -2,7 +2,7 @@ from sqlalchemy import Column, TEXT
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
-from app.db import DeclarativeBase
+from mindbox_backend.db import DeclarativeBase
 
 
 class Item(DeclarativeBase):

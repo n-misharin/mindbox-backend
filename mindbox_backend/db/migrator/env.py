@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.db import DeclarativeBase
-from app.db.models import *
+from mindbox_backend.db import DeclarativeBase
+from mindbox_backend.db.models import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

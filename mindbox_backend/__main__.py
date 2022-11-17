@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.config.utils import get_settings
-from app.endpoints import list_of_routes
+from mindbox_backend.config.utils import get_settings
+from mindbox_backend.endpoints import list_of_routes
 
 
 def bind_routes(application: FastAPI, settings) -> None:

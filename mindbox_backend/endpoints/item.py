@@ -4,9 +4,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from app.db.connection.session import get_session
-from app.db.models.item import Item
-from app.schemas.item import ItemSchema
+from mindbox_backend.db.connection.session import get_session
+from mindbox_backend.db.models.item import Item
+from mindbox_backend.schemas.item import ItemSchema
 
 api_router = APIRouter(
     prefix="/item",

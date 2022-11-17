@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.config.utils import get_settings
+from mindbox_backend.config.utils import get_settings
 
 
 class SessionManager:

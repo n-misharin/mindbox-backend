@@ -1,4 +1,4 @@
-APPLICATION_NAME = app
+APPLICATION_NAME = mindbox_backend
 DB_CONTAINER_NAME = market_db
 
 revision:
