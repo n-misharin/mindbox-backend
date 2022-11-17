@@ -16,5 +16,5 @@ class DefaultSettings(BaseSettings):
 
     @property
     def database_uri(self) -> str:
-        return f"postgres+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@" \
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@" \
                f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"

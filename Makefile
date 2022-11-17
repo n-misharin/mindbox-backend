@@ -9,3 +9,6 @@ migrate:
 
 open_db:
 	docker exec -it $(DB_CONTAINER_NAME) psql -d market_db -U user
+
+run:
+	uvicorn $(APPLICATION_NAME).__main__:app --reload --port=8000

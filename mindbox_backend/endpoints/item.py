@@ -17,13 +17,15 @@ api_router = APIRouter(
 @api_router.get(
     "/{item_id}",
     status_code=status.HTTP_200_OK,
-    response_model=ItemSchema,
+    # response_model=ItemSchema,
 )
 async def get_item(
         item_id: UUID4 = Path(...),
         session: AsyncSession = Depends(get_session)
 ):
-    res = await session.scalar(select(Item))
+    res = await session.scalars(select(Item))
+    print(res.all())
+
     # item = await get_item_by_id(session, item_id)
     # if item:
     #     return ItemSchema.from_orm(item)

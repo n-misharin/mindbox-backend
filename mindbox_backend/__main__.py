@@ -13,9 +13,12 @@ def get_app() -> FastAPI:
     application = FastAPI(
         title="Market",
         docs_url="/swagger",
-        openapi_url="openapi",
+        openapi_url="/openapi",
     )
     settings = get_settings()
     bind_routes(application, settings)
-
+    application.state.settings = settings
     return application
+
+
+app = get_app()
