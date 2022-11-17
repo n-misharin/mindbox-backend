@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["nikita <misharinnikita@gmail.com>"]
 readme = "README.md"
-packages = [{include = "mindbox_backend"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
