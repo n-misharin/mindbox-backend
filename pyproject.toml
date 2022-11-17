@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mindbox-backend"
+version = "0.1.0"
+description = ""
+authors = ["nikita <misharinnikita@gmail.com>"]
+readme = "README.md"
+packages = [{include = "mindbox_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.87.0"
+pydantic = "^1.10.2"
+sqlalchemy = "^1.4.44"
+alembic = "^1.8.1"
+asyncpg = "^0.27.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
