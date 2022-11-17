@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mindbox-backend"
+name = "mindbox_backend"
 version = "0.1.0"
 description = ""
 authors = ["nikita <misharinnikita@gmail.com>"]
