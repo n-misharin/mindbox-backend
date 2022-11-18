@@ -1,6 +1,9 @@
 APPLICATION_NAME = mindbox_backend
 DB_CONTAINER_NAME = market_db
 
+db:
+	docker-compose up -d
+
 revision:
 	cd $(APPLICATION_NAME)/db && alembic revision --autogenerate
 

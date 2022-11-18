@@ -1,9 +1,18 @@
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel, UUID4, Extra, Field
 
 
-class ItemSchema(BaseModel):
-    id: UUID4
+class CreateItemRequest(BaseModel):
     title: str
+    cost: float
+
+
+class PutItemRequest(CreateItemRequest):
+    title: str | None
+    cost: float | None
+
+
+class ItemResponse(CreateItemRequest):
+    id: UUID4
 
     class Config:
         orm_mode = True
