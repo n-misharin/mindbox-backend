@@ -18,17 +18,23 @@ class ItemCategory(DeclarativeBase):
     item_id = Column(
         "item_id",
         UUID(as_uuid=True),
-        ForeignKey("items.id"),
+        ForeignKey("items.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
     )
 
     category_id = Column(
         "category_id",
         UUID(as_uuid=True),
-        ForeignKey("categories.id"),
+        ForeignKey("categories.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
     )
-
-    category = relationship("Category", lazy="selectin")
-
-    item = relationship("Item", lazy="selectin")
+    item = relationship(
+        "Item",
+        backref="item_category",
+        lazy="selectin",
+    )
+    category = relationship(
+        "Category",
+        backref="category_item",
+        lazy="selectin",
+    )
