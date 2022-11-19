@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from mindbox_backend.db import DeclarativeBase
 
@@ -28,4 +29,6 @@ class ItemCategory(DeclarativeBase):
         nullable=False,
     )
 
+    category = relationship("Category", lazy="selectin")
 
+    item = relationship("Item", lazy="selectin")

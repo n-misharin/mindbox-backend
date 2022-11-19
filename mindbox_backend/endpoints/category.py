@@ -1,16 +1,33 @@
 from fastapi import APIRouter, Depends, Path, Response, Body
+from fastapi_pagination import Page
+from fastapi_pagination.ext.async_sqlalchemy import paginate
 from pydantic import UUID4
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
 from mindbox_backend.db.connection.session import get_session
+from mindbox_backend.db.models import Category
 from mindbox_backend.schemas.category import CategoryResponse, CreateCategoryRequest
+from mindbox_backend.schemas.item_category import CategoryWithItems
 from mindbox_backend.utils.category import get_category_by_id, insert_category, update_category, delete_category_by_id
 
 api_router = APIRouter(
     prefix="/category",
     tags=["Category"],
 )
+
+
+@api_router.get(
+    "/all",
+    status_code=status.HTTP_200_OK,
+    response_model=Page[CategoryWithItems],
+)
+async def get_items(
+        session: AsyncSession = Depends(get_session)
+):
+    query = select(Category).order_by(Category.id)
+    return await paginate(session, query)
 
 
 @api_router.get(

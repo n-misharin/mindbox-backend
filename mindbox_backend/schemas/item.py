@@ -13,6 +13,8 @@ class PutItemRequest(CreateItemRequest):
 
 class ItemResponse(CreateItemRequest):
     id: UUID4
+    title: str
+    cost: float
 
     class Config:
         orm_mode = True
