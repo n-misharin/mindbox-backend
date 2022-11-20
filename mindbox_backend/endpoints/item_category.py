@@ -6,8 +6,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
 from mindbox_backend.db.connection.session import get_session
-from mindbox_backend.db.models import ItemCategory, Item, Category
+from mindbox_backend.db.models import Category
 from mindbox_backend.schemas.item_category import ItemCategoryResponse, ItemWithCategories, CategoryWithItems
+from mindbox_backend.utils.item_category import get_query_for_items_with_categories, \
+    get_query_for_pairs_of_item_and_category, get_query_for_categories_with_items
 
 api_router = APIRouter(
     prefix="/all",
@@ -23,9 +25,7 @@ api_router = APIRouter(
 async def get_items(
         session: AsyncSession = Depends(get_session)
 ):
-    query = select(ItemCategory).order_by(ItemCategory.item_id)
-    print("------------>", [i.__dict__ for i in (await session.scalars(query))])
-    return await paginate(session, query)
+    return await paginate(session, get_query_for_pairs_of_item_and_category())
 
 
 @api_router.get(
@@ -36,8 +36,7 @@ async def get_items(
 async def get_items(
         session: AsyncSession = Depends(get_session)
 ):
-    query = select(Item).order_by(Item.id)
-    return await paginate(session, query)
+    return await paginate(session, get_query_for_items_with_categories())
 
 
 @api_router.get(
@@ -48,5 +47,4 @@ async def get_items(
 async def get_items(
         session: AsyncSession = Depends(get_session)
 ):
-    query = select(Category).order_by(Category.id)
-    return await paginate(session, query)
+    return await paginate(session, get_query_for_categories_with_items().limit(1))

@@ -21,6 +21,7 @@ class Category(DeclarativeBase):
         "title",
         TEXT,
         nullable=False,
+        index=True,
     )
     items = relationship(
         "Item",
@@ -28,5 +29,6 @@ class Category(DeclarativeBase):
         backref="category",
         lazy="selectin",
         viewonly=True,
+        primaryjoin="and_(ItemCategory.category_id == Category.id)",
     )
 

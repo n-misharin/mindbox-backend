@@ -15,7 +15,18 @@ psycopg2 = "^2.9.5"
 uvicorn = "^0.19.0"
 fastapi-pagination = "^0.10.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest-asyncio = "^0.20.2"
+asyncio = "^3.4.3"
+sqlalchemy-utils = "^0.38.3"
+pytest = "^7.2.0"
+httpx = "^0.23.1"
+pytest-aiohttp = "^1.0.4"
+faker = "^15.3.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

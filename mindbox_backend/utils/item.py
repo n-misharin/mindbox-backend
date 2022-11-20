@@ -4,7 +4,7 @@ from sqlalchemy import select, update, delete
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mindbox_backend.db.models import Item
+from mindbox_backend.db.models import Item, ItemCategory
 
 
 async def get_item_by_id(session: AsyncSession, item_id: UUID) -> Item:
@@ -13,11 +13,26 @@ async def get_item_by_id(session: AsyncSession, item_id: UUID) -> Item:
     return item
 
 
-async def insert_item(session: AsyncSession, title: str, cost: float) -> Item:
-    query = insert(Item).values(title=title, cost=cost).returning(Item)
-    item = await session.execute(query)
+async def insert_item(
+        session: AsyncSession,
+        title: str,
+        cost: float,
+        categories_ids: list[UUID] | None = None,
+) -> Item:
+    item = Item(title=title, cost=cost)
+    session.add(item)
     await session.commit()
-    return item.first()
+    await session.refresh(item)
+    if categories_ids is not None:
+        ins_values = []
+        for _id in categories_ids:
+            ins_values.append({
+                "category_id": _id,
+                "item_id": item.id
+            })
+        query = insert(ItemCategory).values(ins_values)
+        await session.execute(query)
+    return item
 
 
 async def update_item(session: AsyncSession, item_id: UUID, values: dict) -> Item:

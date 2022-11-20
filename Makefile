@@ -15,3 +15,6 @@ open_db:
 
 run:
 	uvicorn $(APPLICATION_NAME).__main__:app --reload --port=8000
+
+test:
+	poetry run python -m pytest --verbosity=2 --showlocals --log-level=DEBUG

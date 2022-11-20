@@ -14,7 +14,17 @@ class DefaultSettings(BaseSettings):
     POSTGRES_PORT: int = os.environ.get("POSTGRES_PORT", 5432)
     POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD", "hackme")
 
+    PAGINATION_PAGE_SIZE: int = 50
+
+    def get_base_app_url(self):
+        return f"{self.APP_HOST}{self.PATH_PREFIX}:{self.APP_PORT}"
+
     @property
     def database_uri(self) -> str:
         return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@" \
+               f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+
+    @property
+    def database_uri_sync(self) -> str:
+        return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@" \
                f"{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"

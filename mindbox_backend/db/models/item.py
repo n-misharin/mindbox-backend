@@ -19,6 +19,7 @@ class Item(DeclarativeBase):
         "title",
         TEXT,
         nullable=False,
+        index=True,
     )
     cost = Column(
         "cost",

@@ -8,18 +8,13 @@ from mindbox_backend.db import DeclarativeBase
 class ItemCategory(DeclarativeBase):
     __tablename__ = "items_categories"
 
-    id = Column(
-        "id",
-        Integer,
-        primary_key=True,
-        autoincrement=True,
-    )
-
     item_id = Column(
         "item_id",
         UUID(as_uuid=True),
         ForeignKey("items.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
+        primary_key=True,
+        index=True,
     )
 
     category_id = Column(
@@ -27,6 +22,8 @@ class ItemCategory(DeclarativeBase):
         UUID(as_uuid=True),
         ForeignKey("categories.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
+        primary_key=True,
+        index=True,
     )
     item = relationship(
         "Item",
