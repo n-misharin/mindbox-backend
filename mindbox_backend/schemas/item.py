@@ -1,20 +1,21 @@
-from pydantic import BaseModel, UUID4, Extra, Field
+from pydantic import BaseModel, UUID4
+
+from mindbox_backend.schemas.category import CategoryResponse
 
 
 class CreateItemRequest(BaseModel):
     title: str
     cost: float
+    categories: list[UUID4] | None
 
 
 class PutItemRequest(CreateItemRequest):
-    title: str | None
-    cost: float | None
+    pass
 
 
 class ItemResponse(CreateItemRequest):
     id: UUID4
-    title: str
-    cost: float
+    categories: list[CategoryResponse]
 
     class Config:
         orm_mode = True

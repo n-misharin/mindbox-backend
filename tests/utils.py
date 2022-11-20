@@ -39,3 +39,7 @@ def gen_items(count: int = 1) -> list[Item]:
         cost = random.randint(100, 100_000_000) / 100
         items.append(Item(title=title, cost=cost))
     return items
+
+a = {1, 2, 4, 7}
+b = {1, 3, 4, 9}
+print(a - b)
