@@ -26,8 +26,8 @@ class TestItemCategoryEndpoints:
     async def test_get_items(self, client, database, new_items):
         database.add_all(new_items)
 
-        db_items = (await database.scalars(select(Item))).all()
-        db_items.sort(key=lambda x: x.id)
+        db_items = (await database.scalars(select(Item).order_by(Item.id))).all()
+        await database.commit()
 
         response = await client.get(f"{TestItemCategoryEndpoints.get_url()}/all/items",)
 
