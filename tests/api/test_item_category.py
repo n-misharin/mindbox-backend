@@ -1,9 +1,11 @@
 from uuid import UUID
 
 import pytest
+from sqlalchemy import select
 from starlette import status
 
 from mindbox_backend.config.utils import get_settings
+from mindbox_backend.db.models import Item
 from mindbox_backend.utils.item import insert_item
 from tests.utils import gen_items
 
@@ -22,10 +24,9 @@ class TestItemCategoryEndpoints:
         ]
     )
     async def test_get_items(self, client, database, new_items):
-        db_items = []
-        for item in new_items:
-            db_item = await insert_item(database, item.title, item.cost)
-            db_items.append(db_item)
+        database.add_all(new_items)
+
+        db_items = (await database.scalars(select(Item))).all()
         db_items.sort(key=lambda x: x.id)
 
         response = await client.get(f"{TestItemCategoryEndpoints.get_url()}/all/items",)
@@ -51,8 +52,8 @@ class TestItemCategoryEndpoints:
         ]
     )
     async def test_get_items_pagination(self, client, database, new_items):
-        for item in new_items:
-            await insert_item(database, item.title, item.cost)
+        database.add_all(new_items)
+        await database.commit()
         response = await client.get(
             f"{TestItemCategoryEndpoints.get_url()}/all/items",
         )

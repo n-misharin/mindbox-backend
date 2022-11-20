@@ -13,6 +13,15 @@ class PutItemRequest(CreateItemRequest):
     pass
 
 
+class ItemWithoutCategoryResponse(BaseModel):
+    id: UUID4
+    title: str
+    cost: float
+
+    class Config:
+        orm_mode = True
+
+
 class ItemResponse(CreateItemRequest):
     id: UUID4
     categories: list[CategoryResponse]

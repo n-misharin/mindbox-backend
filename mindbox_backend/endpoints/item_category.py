@@ -47,4 +47,4 @@ async def get_items(
 async def get_items(
         session: AsyncSession = Depends(get_session)
 ):
-    return await paginate(session, get_query_for_categories_with_items().limit(1))
+    return await paginate(session, get_query_for_categories_with_items())
