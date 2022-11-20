@@ -5,7 +5,7 @@ from pathlib import Path
 from alembic.config import Config
 from faker import Faker
 
-from mindbox_backend.db.models import Item
+from mindbox_backend.db.models import Item, Category, ItemCategory
 
 PROJECT_PATH = Path(__file__).parent.parent.resolve()
 
@@ -40,6 +40,29 @@ def gen_items(count: int = 1) -> list[Item]:
         items.append(Item(title=title, cost=cost))
     return items
 
-a = {1, 2, 4, 7}
-b = {1, 3, 4, 9}
-print(a - b)
+
+def gen_categories(count: int = 1) -> list[Category]:
+    faker = Faker()
+    return [
+        Category(title=faker.sentence(nb_words=2))
+        for _ in range(count)
+    ]
+
+
+def gen_category_for_items(items: list[Item], categories: list[Category]) -> list[ItemCategory]:
+    item_category = []
+    for item in items:
+        new_categories = random.sample(categories, k=random.randint(1, len(categories)))
+        item.categories.extend(new_categories)
+        for category in new_categories:
+            i = ItemCategory(item_id=item.id, category_id=category.id)
+            item_category.append(i)
+    return item_category[:]
+
+
+# items = gen_items(10)
+# categories = gen_categories(10)
+# print([
+#     (e.item_id, e.category_id)
+#     for e in gen_category_for_items(items, categories)
+# ])

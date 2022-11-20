@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from mindbox_backend.schemas.category import CategoryResponse
-from mindbox_backend.schemas.item import ItemResponse, ItemWithoutCategoryResponse as ICResponse
+from mindbox_backend.schemas.item import ItemResponse, ItemWithoutCategoryResponse
 
 
 class ItemWithCategories(ItemResponse):
@@ -9,11 +9,11 @@ class ItemWithCategories(ItemResponse):
 
 
 class CategoryWithItems(CategoryResponse):
-    items: list[ICResponse]
+    items: list[ItemWithoutCategoryResponse]
 
 
 class ItemCategoryResponse(BaseModel):
-    item: ItemResponse
+    item: ItemWithoutCategoryResponse
     category: CategoryResponse
 
     class Config:
