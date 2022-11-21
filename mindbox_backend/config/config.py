@@ -6,7 +6,7 @@ from pydantic import BaseSettings
 class DefaultSettings(BaseSettings):
     PATH_PREFIX: str = os.environ.get("PATH_PREFIX", "/api/v1")
     APP_HOST: str = os.environ.get("APP_HOST", "http://127.0.0.1")
-    APP_PORT: int = os.environ.get("APP_PORT", 8000)
+    APP_PORT: int = os.environ.get("APP_PORT", 80)
 
     POSTGRES_DB: str = os.environ.get("POSTGRES_DB", "market_db")
     POSTGRES_HOST: str = os.environ.get("POSTGRES_HOST", "localhost")

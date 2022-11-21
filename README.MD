@@ -1,6 +1,26 @@
 ##  Запуск
 
+`$ make init` - установка зависимостей с помощью `poetry`.
 
+`$ make db` - создание контейнера Postgres.
+
+`$ make run` - запуск бэкенда без контейнера.
+
+`$ make all_services` - запуск всех сервисов (бэкенда и бд) в контейнерах.
+
+`$ make test` - запуск тестов.
+
+`$make restore_db` - импортировать дамп с данными (`dump.sql`).
+
+## Эндпоинты решения
+
+http://loclhost/api/v1/all/items - список продуктов.
+
+http://loclhost/api/v1/all/categories - список категорий.
+
+http://loclhost/api/v1/all/pairs - список пар «Имя продукта – Имя категории».
+
+Другие можно посмотреть тут http://localhost/swagger.
 
 ## Описание (Задание No2)
 

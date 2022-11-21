@@ -1,19 +1,6 @@
 version: '3.9'
 
 services:
-  market_app:
-    build: .
-    depends_on:
-      - market_db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: hackme
-      POSTGRES_DB: market_db
-      POSTGRES_HOST: market_db
-      POSTGRES_PORT: 5432
-    ports:
-      - "80:80"
-
   market_db:
     container_name: 'market_db'
     image: 'postgres:13'
