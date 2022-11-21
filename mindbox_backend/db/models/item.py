@@ -20,6 +20,7 @@ class Item(DeclarativeBase):
         TEXT,
         nullable=False,
         index=True,
+        unique=True,
     )
     cost = Column(
         "cost",

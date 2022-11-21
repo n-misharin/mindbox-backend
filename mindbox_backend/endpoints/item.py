@@ -35,12 +35,23 @@ async def get_item(
     "/",
     status_code=status.HTTP_201_CREATED,
     response_model=ItemResponse,
+    responses={
+        status.HTTP_400_BAD_REQUEST: {
+            "description": "Invalid data",
+        },
+    }
 )
 async def add_item(
         item_request: CreateItemRequest = Body(...),
         session: AsyncSession = Depends(get_session)
 ):
-    item = await insert_item(session, item_request.title, item_request.cost, item_request.categories)
+    try:
+        item = await insert_item(session, item_request.title, item_request.cost, item_request.categories)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid data."
+        )
     return ItemResponse.from_orm(item)
 
 
@@ -48,6 +59,14 @@ async def add_item(
     "/{item_id}",
     status_code=status.HTTP_200_OK,
     response_model=ItemResponse,
+    responses={
+        status.HTTP_400_BAD_REQUEST: {
+            "description": "Invalid data",
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "description": "Item not found",
+        },
+    }
 )
 async def put_item(
         item_id: UUID4 = Path(...),
@@ -80,6 +99,11 @@ async def put_item(
     "/{item_id}",
     status_code=status.HTTP_200_OK,
     response_class=Response,
+    responses={
+        status.HTTP_404_NOT_FOUND: {
+            "description": "Item not found",
+        },
+    }
 )
 async def delete_item(
         item_id: UUID4 = Path(...),

@@ -22,6 +22,7 @@ class Category(DeclarativeBase):
         TEXT,
         nullable=False,
         index=True,
+        unique=True,
     )
     items = relationship(
         "Item",

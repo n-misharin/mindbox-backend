@@ -36,12 +36,6 @@ async def get_items(
 async def get_items(
         session: AsyncSession = Depends(get_session)
 ):
-    print("-" * 10)
-    print("\n".join([
-        " ".join([str(i.id)] + [j.title for j in i.items])
-        for i in (await session.scalars(select(Category).order_by(Category.id))).all()
-    ]))
-    print("-" * 10)
     return await paginate(session, get_query_for_items_with_categories())
 
 

@@ -1,8 +1,8 @@
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel, UUID4, Field
 
 
 class CreateCategoryRequest(BaseModel):
-    title: str
+    title: str = Field(max_length=50)
 
 
 class CategoryResponse(CreateCategoryRequest):

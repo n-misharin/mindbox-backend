@@ -63,4 +63,5 @@ class TestItemCRUD:
         assert db_items[0].title == new_item["title"] == item.title
         assert db_items[0].cost == new_item["cost"] == item.cost
 
+    # To be continued ...
     # TODO: add tests for select, update and insert

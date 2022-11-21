@@ -1,3 +1,4 @@
+from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import select, update, delete, and_
@@ -18,14 +19,14 @@ async def insert_item(
         session: AsyncSession,
         title: str,
         cost: float,
-        categories_ids: list[UUID] | None = None,
+        categories_ids: Optional[list[UUID]] = None,
 ) -> Item:
     item = Item(title=title, cost=cost)
     async with session.begin():
         session.add(item)
         await session.flush()
         await session.refresh(item)
-        if categories_ids is not None:
+        if categories_ids is not None and len(categories_ids) > 0:
             ins_values = []
             for _id in categories_ids:
                 ins_values.append({
@@ -43,7 +44,7 @@ async def update_item(
         item: Item,
         new_title: str,
         new_cost: float,
-        new_categories: list[UUID] | None = None
+        new_categories: Optional[list[UUID]] = None
 ) -> Item:
     async with session.begin():
         old_item_query = select(ItemCategory.category_id).where(ItemCategory.item_id == item.id)
